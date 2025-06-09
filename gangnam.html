@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>강남구 미슐랭 음식점</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #e6f3ff 0%, #cce7ff 50%, #b3daff 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* 헤더 스타일 */
+        header {
+            background: linear-gradient(135deg, #ffffff 0%, #f0f8ff 100%);
+            border-bottom: 1px solid #e5e5e5;
+            position: sticky;
+            top: 0;
+            z-index: 40;
+            box-shadow: 0 4px 15px rgba(135, 206, 235, 0.3);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            background-color: #2c5aa0;
+            color: white;
+            padding: 0.5rem;
+            border-radius: 0.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #2c5aa0;
+        }
+
+        .back-button {
+            background: linear-gradient(135deg, #2c5aa0 0%, #1e3a8a 100%);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            box-shadow: 0 2px 8px rgba(44, 90, 160, 0.3);
+        }
+
+        .back-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(44, 90, 160, 0.4);
+        }
+
+        /* 히어로 섹션 */
+        .hero {
+            position: relative;
+            height: 300px;
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(44, 90, 160, 0.8) 0%, rgba(30, 58, 138, 0.6) 100%);
+        }
+
+        .hero-content {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 1rem;
+        }
+
+        .hero-title {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+        }
+
+        /* 섹션 스타일 */
+        section {
+            padding: 3rem 0;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: #2c5aa0;
+        }
+
+        /* 카드 그리드 */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            justify-items: center;
+        }
+
+        /* 레스토랑 카드 */
+        .restaurant-card {
+            border: 1px solid rgba(176, 224, 230, 0.3);
+            border-radius: 1rem;
+            overflow: hidden;
+            background: linear-gradient(135deg, #ffffff 0%, #f8fcff 100%);
+            transition: all 0.3s;
+            color: inherit;
+            display: block;
+            box-shadow: 0 6px 20px rgba(135, 206, 235, 0.3);
+            max-width: 350px;
+            width: 100%;
+        }
+
+        .restaurant-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(135, 206, 235, 0.4);
+        }
+
+        .card-image-container {
+            position: relative;
+            height: 220px;
+            overflow: hidden;
+        }
+
+        .card-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .restaurant-card:hover .card-image {
+            transform: scale(1.05);
+        }
+
+        .image-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+        }
+
+        .card-badge {
+            position: absolute;
+            bottom: 1rem;
+            left: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .star-icon {
+            color: #ffc107;
+            fill: #ffc107;
+            width: 1.25rem;
+            height: 1.25rem;
+            filter: drop-shadow(0 1px 2px rgba(0,0,0,0.3));
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        .card-title {
+            font-weight: 600;
+            font-size: 1.25rem;
+            margin: 0 0 0.5rem 0;
+            color: #2c5aa0;
+        }
+
+        .restaurant-info {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            color: #5a7ba8;
+            margin-bottom: 1rem;
+        }
+
+        /* 유튜브 링크 스타일 */
+        .youtube-link-container {
+            margin-top: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .youtube-icon {
+            color: #ff0000;
+            fill: #ff0000;
+            width: 1.5rem;
+            height: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .youtube-input {
+            flex-grow: 1;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 0.25rem;
+            font-size: 0.875rem;
+        }
+
+        .youtube-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            color: #ff0000;
+            text-decoration: none;
+            margin-top: 0.5rem;
+        }
+
+        .youtube-link:hover {
+            text-decoration: underline;
+        }
+
+        .save-button {
+            background-color: #ff0000;
+            color: white;
+            border: none;
+            border-radius: 0.25rem;
+            padding: 0.5rem;
+            cursor: pointer;
+            font-size: 0.75rem;
+            transition: background-color 0.2s;
+        }
+
+        .save-button:hover {
+            background-color: #cc0000;
+        }
+
+        /* 푸터 */
+        footer {
+            background: linear-gradient(135deg, #2c5aa0 0%, #1e3a8a 100%);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            font-size: 0.875rem;
+        }
+
+        /* 반응형 스타일 */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 1.75rem;
+            }
+
+            .card-grid {
+                grid-template-columns: 1fr;
+                padding: 0 1rem;
+            }
+        }
+
+        /* 아이콘 스타일 */
+        .icon {
+            display: inline-block;
+            width: 1em;
+            height: 1em;
+            stroke-width: 0;
+            stroke: currentColor;
+            fill: currentColor;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">
+                    <div class="logo-icon">
+                        <svg class="icon" viewBox="0 0 24 24" width="24" height="24">
+                            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path>
+                        </svg>
+                    </div>
+                    <span class="logo-text">강남구 미슐랭</span>
+                </a>
+                <a href="index.html" class="back-button">← 지역 선택으로 돌아가기</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <img src="https://images.unsplash.com/photo-1551698618-1dfe5d97d256?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" alt="강남구" class="hero-image">
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+                <h1 class="hero-title">강남구</h1>
+                <p class="hero-subtitle">세련된 미식의 메카</p>
+            </div>
+        </section>
+
+        <section>
+            <div class="container">
+                <h2 class="section-title">강남구 미슐랭 레스토랑</h2>
+                <div class="card-grid">
+                    <!-- 3성 레스토랑 -->
+                    <div class="restaurant-card">
+                        <div class="card-image-container">
+                            <img src="https://images.unsplash.com/photo-1600891964092-4316c288032e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="밍글스" class="card-image">
+                            <div class="image-overlay"></div>
+                            <div class="card-badge">
+                                <svg class="star-icon" viewBox="0 0 24 24" width="20" height="20">
+                                    <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path>
+                                </svg>
+                                <svg class="star-icon" viewBox="0 0 24 24" width="20" height="20">
+                                    <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path>
+                                </svg>
+                                <svg class="star-icon" viewBox="0 0 24 24" width="20" height="20">
+                                    <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">밍글스</h3>
+                            <div class="restaurant-info">
+                                <span>한식</span>
+                                <span>•</span>
+                                <span>강남구</span>
+                            </div>
+                            <div class="youtube-link-container">
+                                <svg class="youtube-icon" viewBox="0 0 24 24" width="20" height="20">
+                                    <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"></path>
+                                </svg>
+                                <input type="text" placeholder="유튜브 링크 입력" class="youtube-input" id="youtube-밍글스">
+                                <button class="save-button" onclick="saveYoutubeLink('밍글스')">저장</button>
+                            </div>
+                            <div id="saved-link-밍글스"></div>
+                        </div>
+                    </div>
+
+                    <!-- 2성 레스토랑 -->
+                    <div class="restaurant-card">
+                        <div class="card-image-container">
+                            <img src="https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?ixlib=rb-1.2.1&auto=format&fit=crop&w=1267&q=80" alt="권숙수" class="card-image">
+                            <div class="image-overlay"></div>
+                            <div class="card-badge">
+                                <svg class="star-icon" viewBox="0 0 24 24" width="20" height="20">
+                                    <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path>
+                                </svg>
+                                <svg class="star-icon" viewBox="0 0 24 24" width="20" height="20">
+                                    <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">권숙수</h3>
+                            <div class="restaurant-info">
+                                <span>한식</span>
+                                <span>•</span>
+                                <span>강남구</span>
+                            </div>
+                            <div class="youtube-link-container">
+                                <svg class="youtube-icon" viewBox="0 0 24 24" width="20" height="20">
+                                    <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"></path>
+                                </svg>
+                                <input type="text" placeholder="유튜브 링크 입력" class="youtube-input" id="youtube-권숙수">
+                                <button class="save-button" onclick="saveYoutubeLink('권숙수')">저장</button>
+                            </div>
+                            <div id="saved-link-권숙수"></div>
+                        </div>
+                    </div>
+
+                    <div class="restaurant-card">
+                        <div class="card-image-container">
+                            <img src="https://images.unsplash.com/photo-1535140728325-a4d3707eee61?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="정식당" class="card-image">
+                            <div class="image-overlay"></div>
+                            <div class="card-badge">
+                                <svg class="star-icon" viewBox="0 0 24 24" width="20" height="20">
+                                    <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path>
+                                </svg>
+                                <svg class="star-icon" viewBox="0 0 24 24" width="20" height="20">
+                                    <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">정식당</h3>
+                            <div class="restaurant-info">
+                                <span>한식</span>
+                                <span>•</span>
+                                <span>강남구</span>
+                            </div>
+                            <div class="youtube-link-container">
+                                <svg class="youtube-icon" viewBox="0 0 24 24" width="20" height="20">
+                                    <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"></path>
+                                </svg>
+                                <input type="text" placeholder="유튜브 링크 입력" class="youtube-input" id="youtube-정식당">
+                                <button class="save-button" onclick="saveYoutubeLink('정식당')">저장</button>
+                            </div>
+                            <div id="saved-link-정식당"></div>
+                        </div>
+                    </div>
+
+                    <!-- 1성 레스토랑 -->
+                    <div class="restaurant-card">
+                        <div class="card-image-container">
+                            <img src="https://images.unsplash.com/photo-1515669097368-22e68427d265?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="스와니예" class="card-image">
+                            <div class="image-overlay"></div>
+                            <div class="card-badge">
+                                <svg class="star-icon" viewBox="0 0 24 24" width="20" height="20">
+                                    <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">스와니예</h3>
+                            <div class="restaurant-info">
+                                <span>프렌치</span>
+                                <span>•</span>
+                                <span>강남구</span>
+                            </div>
+                            <div class="youtube-link-container">
+                                <svg class="youtube-icon" viewBox="0 0 24 24" width="20" height="20">
+                                    <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"></path>
+                                </svg>
+                                <input type="text" placeholder="유튜브 링크 입력" class="youtube-input" id="youtube-스와니예">
+                                <button class="save-button" onclick="saveYoutubeLink('스와니예')">저장</button>
+                            </div>
+                            <div id="saved-link-스와니예"></div>
+                        </div>
+                    </div>
+
+                    <div class="restaurant-card">
+                        <div class="card-image-container">
+                            <img src="https://images.unsplash.com/photo-1564759298141-cba1a71c7616?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="비채나" class="card-image">
+                            <div class="image-overlay"></div>
+                            <div class="card-badge">
+                                <svg class="star-icon" viewBox="0 0 24 24" width="20" height="20">
+                                    <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">비채나</h3>
+                            <div class="restaurant-info">
+                                <span>한식</span>
+                                <span>•</span>
+                                <span>강남구</span>
+                            </div>
+                            <div class="youtube-link-container">
+                                <svg class="youtube-icon" viewBox="0 0 24 24" width="20" height="20">
+                                    <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"></path>
+                                </svg>
+                                <input type="text" placeholder="유튜브 링크 입력" class="youtube-input" id="youtube-비채나">
+                                <button class="save-button" onclick="saveYoutubeLink('비채나')">저장</button>
+                            </div>
+                            <div id="saved-link-비채나"></div>
+                        </div>
+                    </div>
+
+                    <!-- 미슐랭 선정 레스토랑 -->
+                    <div class="restaurant-card">
+                        <div class="card-image-container">
+                            <img src="https://images.unsplash.com/photo-1554679665-f5537f187268?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="볼트" class="card-image">
+                            <div class="image-overlay"></div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">볼트</h3>
+                            <div class="restaurant-info">
+                                <span>이탈리안</span>
+                                <span>•</span>
+                                <span>강남구</span>
+                            </div>
+                            <div class="youtube-link-container">
+                                <svg class="youtube-icon" viewBox="0 0 24 24" width="20" height="20">
+                                    <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"></path>
+                                </svg>
+                                <input type="text" placeholder="유튜브 링크 입력" class="youtube-input" id="youtube-볼트">
+                                <button class="save-button" onclick="saveYoutubeLink('볼트')">저장</button>
+                            </div>
+                            <div id="saved-link-볼트"></div>
+                        </div>
+                    </div>
+
+                    <div class="restaurant-card">
+                        <div class="card-image-container">
+                            <img src="https://images.unsplash.com/photo-1555126634-323283e090fa?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="리스토란테 에오" class="card-image">
+                            <div class="image-overlay"></div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">리스토란테 에오</h3>
+                            <div class="restaurant-info">
+                                <span>이탈리안</span>
+                                <span>•</span>
+                                <span>강남구</span>
+                            </div>
+                            <div class="youtube-link-container">
+                                <svg class="youtube-icon" viewBox="0 0 24 24" width="20" height="20">
+                                    <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"></path>
+                                </svg>
+                                <input type="text" placeholder="유튜브 링크 입력" class="youtube-input" id="youtube-리스토란테에오">
+                                <button class="save-button" onclick="saveYoutubeLink('리스토란테에오')">저장</button>
+                            </div>
+                            <div id="saved-link-리스토란테에오"></div>
+                        </div>
+                    </div>
+
+                    <div class="restaurant-card">
+                        <div class="card-image-container">
+                            <img src="https://images.unsplash.com/photo-1533777857889-4be7c70b33f7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="스시조" class="card-image">
+                            <div class="image-overlay"></div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">스시조</h3>
+                            <div class="restaurant-info">
+                                <span>일식</span>
+                                <span>•</span>
+                                <span>강남구</span>
+                            </div>
+                            <div class="youtube-link-container">
+                                <svg class="youtube-icon" viewBox="0 0 24 24" width="20" height="20">
+                                    <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"></path>
+                                </svg>
+                                <input type="text" placeholder="유튜브 링크 입력" class="youtube-input" id="youtube-스시조">
+                                <button class="save-button" onclick="saveYoutubeLink('스시조')">저장</button>
+                            </div>
+                            <div id="saved-link-스시조"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>© 2025 서울 미슐랭. 모든 권리 보유.</p>
+        </div>
+    </footer>
+
+    <script>
+        function saveYoutubeLink(restaurantName) {
+            const inputElement = document.getElementById(`youtube-${restaurantName}`);
+            const linkUrl = inputElement.value.trim();
+
+            if (!linkUrl) {
+                alert('유튜브 링크를 입력해주세요.');
+                return;
+            }
+
+            if (!linkUrl.includes('youtube.com') && !linkUrl.includes('youtu.be')) {
+                alert('올바른 유튜브 링크를 입력해주세요.');
+                return;
+            }
+
+            localStorage.setItem(`youtube-${restaurantName}`, linkUrl);
+            displaySavedLink(restaurantName, linkUrl);
+            inputElement.value = '';
+        }
+
+        function displaySavedLink(restaurantName, linkUrl) {
+            const savedLinkElement = document.getElementById(`saved-link-${restaurantName}`);
+            const inputContainer = savedLinkElement.previousElementSibling; // youtube-link-container
+            
+            // 입력 컨테이너 숨기기
+            inputContainer.style.display = 'none';
+            
+            savedLinkElement.innerHTML = `
+                <a href="${linkUrl}" target="_blank" class="youtube-link">
+                    <svg class="youtube-icon" viewBox="0 0 24 24" width="20" height="20">
+                        <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"></path>
+                    </svg>
+                    리뷰 영상 보기
+                </a>
+            `;
+        }
+
+        window.addEventListener('DOMContentLoaded', function () {
+            const restaurants = ['밍글스', '권숙수', '정식당', '스와니예', '비채나', '볼트', '리스토란테에오', '스시조'];
+            restaurants.forEach(function (restaurant) {
+                const savedLink = localStorage.getItem(`youtube-${restaurant}`);
+                if (savedLink) {
+                    displaySavedLink(restaurant, savedLink);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

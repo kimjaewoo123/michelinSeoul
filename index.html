@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>미쉐린 가이드 - 서울 지역 선택</title>
+    <style>
+        /* 폰트 및 전체 배경 설정 */
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            text-align: center;
+            background: linear-gradient(135deg, #e6f3ff 0%, #cce7ff 50%, #b3daff 100%);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            color: #2c5aa0;
+            background: linear-gradient(135deg, #ffffff 0%, #f0f8ff 100%);
+            padding: 30px 0;
+            margin: 0;
+            box-shadow: 0 4px 15px rgba(135, 206, 235, 0.3);
+            text-shadow: 0 1px 3px rgba(44, 90, 160, 0.1);
+        }
+
+        .map-container {
+            position: relative;
+            display: inline-block;
+            margin: 20px auto 10px auto;
+            background: linear-gradient(135deg, #ffffff 0%, #f8fcff 100%);
+            padding: 12px;
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(135, 206, 235, 0.4);
+            border: 2px solid rgba(176, 224, 230, 0.3);
+        }
+
+            .map-container img {
+                width: 650px;
+                height: auto;
+                border-radius: 15px;
+                box-shadow: 0 4px 15px rgba(135, 206, 235, 0.2);
+            }
+
+        /* 클릭 가능한 구역 스타일 */
+        .district-area {
+            position: absolute;
+            width: 60px;
+            height: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+            /* 빨간 점 스타일을 하늘색 점으로 변경 */
+            .district-area::after {
+                content: '';
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                width: 14px;
+                height: 14px;
+                background: linear-gradient(135deg, #87ceeb 0%, #5dade2 100%);
+                border-radius: 50%;
+                transform: translate(-50%, -50%) scale(1);
+                transition: all 0.3s ease;
+                box-shadow: 0 4px 15px rgba(135, 206, 235, 0.5);
+                z-index: 10;
+                border: 2px solid rgba(255, 255, 255, 0.8);
+                opacity: 0.4; /* 기본적으로 희미하게 표시 */
+            }
+
+            /* 호버 시 선명하게 표시 */
+            .district-area:hover::after {
+                transform: translate(-50%, -50%) scale(1.2);
+                opacity: 1; /* 호버 시 완전히 선명하게 */
+                box-shadow: 0 6px 20px rgba(135, 206, 235, 0.8);
+            }
+
+            /* 클릭 효과 */
+            .district-area:active::after {
+                transform: translate(-50%, -50%) scale(1.4);
+                background: linear-gradient(135deg, #5dade2 0%, #3498db 100%);
+            }
+
+        /* 각 구별 위치 설정 */
+        .jongno {
+            top: 260px;
+            left: 307px;
+        }
+
+        .jung {
+            top: 310px;
+            left: 329px;
+        }
+
+        .seongdong {
+            top: 325px;
+            left: 403px;
+        }
+
+        .yongsan {
+            top: 360px;
+            left: 311px;
+        }
+
+        .gangnam {
+            top: 437px;
+            left: 429px;
+        }
+
+        .songpa {
+            top: 414px;
+            left: 512px;
+        }
+
+        .gwangjin {
+            top: 333px;
+            left: 473px;
+        }
+
+        /* 안내 텍스트 컨테이너 */
+        .instruction-container {
+            background: linear-gradient(135deg, #ffffff 0%, #f0f8ff 100%);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 10px auto 20px auto;
+            max-width: 600px;
+            box-shadow: 0 6px 20px rgba(135, 206, 235, 0.3);
+            border: 1px solid rgba(176, 224, 230, 0.4);
+        }
+
+        /* 안내 텍스트 */
+        .instruction {
+            font-size: 1.1rem;
+            color: #2c5aa0;
+            font-weight: 500;
+            line-height: 1.5;
+            margin: 0 0 10px 0;
+        }
+
+        .available-districts {
+            font-size: 0.95rem;
+            color: #5a7ba8;
+            font-style: italic;
+            margin: 0;
+            opacity: 0.9;
+        }
+
+        /* 반응형 대응 */
+        @media (max-width: 640px) {
+            body {
+                background: linear-gradient(135deg, #e6f3ff 0%, #cce7ff 100%);
+            }
+
+            .map-container {
+                margin: 15px 10px 8px 10px;
+                padding: 10px;
+            }
+
+                .map-container img {
+                    width: 100%;
+                    max-width: 650px;
+                }
+
+            h1 {
+                font-size: 1.8rem;
+                padding: 20px 0;
+            }
+
+            .instruction-container {
+                margin: 8px 15px 20px 15px;
+                padding: 15px;
+            }
+
+            .instruction {
+                font-size: 1rem;
+            }
+
+            .available-districts {
+                font-size: 0.9rem;
+            }
+
+            /* 모바일에서 구역 위치 비례 조정 */
+            .jongno {
+                top: 46%;
+                left: 49%;
+            }
+
+            .jung {
+                top: 53%;
+                left: 55%;
+            }
+
+            .seongdong {
+                top: 48%;
+                left: 62%;
+            }
+
+            .yongsan {
+                top: 61%;
+                left: 47%;
+            }
+
+            .gangnam {
+                top: 71%;
+                left: 55%;
+            }
+
+            .songpa {
+                top: 73%;
+                left: 67%;
+            }
+
+            .gwangjin {
+                top: 56%;
+                left: 70%;
+            }
+
+            .district-area {
+                width: 50px;
+                height: 25px;
+            }
+
+                .district-area::after {
+                    width: 12px;
+                    height: 12px;
+                }
+        }
+    </style>
+</head>
+<body>
+    <h1>미쉐린 가이드 서울</h1>
+
+    <div class="map-container">
+        <img src="https://cdn.crowdpic.net/detail-thumb/thumb_d_EA698713FB43A572F10161572888A70A.png" alt="서울시 지도">
+
+        <!-- 각 구별 클릭 가능한 영역 -->
+        <div class="district-area jongno" onclick="location.href='jongno.html'" title="종로구 미슐랭 레스토랑 보기"></div>
+        <div class="district-area jung" onclick="location.href='jung.html'" title="중구 미슐랭 레스토랑 보기"></div>
+        <div class="district-area seongdong" onclick="location.href='seongdong.html'" title="성동구 미슐랭 레스토랑 보기"></div>
+        <div class="district-area yongsan" onclick="location.href='yongsan.html'" title="용산구 미슐랭 레스토랑 보기"></div>
+        <div class="district-area gangnam" onclick="location.href='gangnam.html'" title="강남구 미슐랭 레스토랑 보기"></div>
+        <div class="district-area songpa" onclick="location.href='songpa.html'" title="송파구 미슐랭 레스토랑 보기"></div>
+        <div class="district-area gwangjin" onclick="location.href='gwangjin.html'" title="광진구 미슐랭 레스토랑 보기"></div>
+    </div>
+
+    <div class="instruction-container">
+        <p class="instruction">지도에서 원하는 구에 마우스를 올려보세요</p>
+        <p class="available-districts">선택 가능한 지역: 종로구, 중구, 성동구, 용산구, 강남구, 송파구, 광진구 (총 7개 구)</p>
+    </div>
+</body>
+</html>

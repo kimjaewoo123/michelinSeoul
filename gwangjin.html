@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>광진구 미슐랭 음식점</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #e6f3ff 0%, #cce7ff 50%, #b3daff 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* 헤더 스타일 */
+        header {
+            background: linear-gradient(135deg, #ffffff 0%, #f0f8ff 100%);
+            border-bottom: 1px solid #e5e5e5;
+            position: sticky;
+            top: 0;
+            z-index: 40;
+            box-shadow: 0 4px 15px rgba(135, 206, 235, 0.3);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            background-color: #2c5aa0;
+            color: white;
+            padding: 0.5rem;
+            border-radius: 0.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #2c5aa0;
+        }
+
+        .back-button {
+            background: linear-gradient(135deg, #2c5aa0 0%, #1e3a8a 100%);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            box-shadow: 0 2px 8px rgba(44, 90, 160, 0.3);
+        }
+
+        .back-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(44, 90, 160, 0.4);
+        }
+
+        /* 히어로 섹션 */
+        .hero {
+            position: relative;
+            height: 300px;
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(44, 90, 160, 0.8) 0%, rgba(30, 58, 138, 0.6) 100%);
+        }
+
+        .hero-content {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 1rem;
+        }
+
+        .hero-title {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+        }
+
+        /* 섹션 스타일 */
+        section {
+            padding: 3rem 0;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: #2c5aa0;
+        }
+
+        .no-restaurants {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, #ffffff 0%, #f8fcff 100%);
+            border-radius: 1rem;
+            box-shadow: 0 6px 20px rgba(135, 206, 235, 0.3);
+            border: 1px solid rgba(176, 224, 230, 0.3);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .no-restaurants h3 {
+            font-size: 1.5rem;
+            color: #2c5aa0;
+            margin-bottom: 1rem;
+        }
+
+        .no-restaurants p {
+            color: #5a7ba8;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+
+        .explore-button {
+            background: linear-gradient(135deg, #2c5aa0 0%, #1e3a8a 100%);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(44, 90, 160, 0.3);
+            display: inline-block;
+        }
+
+        .explore-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(44, 90, 160, 0.4);
+        }
+
+        /* 푸터 */
+        footer {
+            background: linear-gradient(135deg, #2c5aa0 0%, #1e3a8a 100%);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            font-size: 0.875rem;
+        }
+
+        /* 반응형 스타일 */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 1.75rem;
+            }
+
+            .no-restaurants {
+                margin: 0 1rem;
+                padding: 3rem 1.5rem;
+            }
+        }
+
+        /* 아이콘 스타일 */
+        .icon {
+            display: inline-block;
+            width: 1em;
+            height: 1em;
+            stroke-width: 0;
+            stroke: currentColor;
+            fill: currentColor;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">
+                    <div class="logo-icon">
+                        <svg class="icon" viewBox="0 0 24 24" width="24" height="24">
+                            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path>
+                        </svg>
+                    </div>
+                    <span class="logo-text">광진구 미슐랭</span>
+                </a>
+                <a href="index.html" class="back-button">← 지역 선택으로 돌아가기</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <img src="https://images.unsplash.com/photo-1590736969955-71cc94901144?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" alt="광진구" class="hero-image">
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+                <h1 class="hero-title">광진구</h1>
+                <p class="hero-subtitle">젊은 에너지가 넘치는 미식 탐험지</p>
+            </div>
+        </section>
+
+        <section>
+            <div class="container">
+                <h2 class="section-title">광진구 미슐랭 레스토랑</h2>
+                <div class="no-restaurants">
+                    <h3>아직 미슐랭 레스토랑이 없습니다</h3>
+                    <p>광진구에는 현재 미슐랭 가이드에 등재된 레스토랑이 없습니다.<br>
+                    하지만 이 지역에는 많은 훌륭한 음식점들이 있으니, 다른 지역의 미슐랭 레스토랑을 탐험해보세요!</p>
+                    <a href="index.html" class="explore-button">다른 지역 탐험하기</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>© 2025 서울 미슐랭. 모든 권리 보유.</p>
+        </div>
+    </footer>
+</body>
+</html>
